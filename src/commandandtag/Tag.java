@@ -1,9 +1,9 @@
 package commandandtag;
 
-public class Tag {
-    private final int tag;
+public class Tag implements Comparable<Tag>{
+    private final Integer tag;
 
-    public Tag(int tag) {
+    public Tag(Integer tag) {
         this.tag = tag;
     }
 
@@ -16,5 +16,10 @@ public class Tag {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public int compareTo(Tag o) {
+        return Integer.compare(tag, o.tag);
     }
 }

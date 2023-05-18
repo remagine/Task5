@@ -9,9 +9,11 @@ public class CommandAndTag {
         this.tag = tag;
     }
 
+    public Command getCommand() {
+        return command;
+    }
 
-    public static void execute() {
-
-
+    public Tag getTag() {
+        return tag;
     }
 }

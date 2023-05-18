@@ -1,3 +1,4 @@
+import Task.TaskService;
 import commandandtag.Command;
 import commandandtag.CommandAndTag;
 import commandandtag.Tag;
@@ -66,9 +67,13 @@ public class Main {
 
                 // 처리의 입력을 생성
                 CommandAndTag commandAndTag = new CommandAndTag(command, tag);
-
                 // 처리
-                CommandAndTag.execute();
+                //CommandAndTag.execute();
+                // 처리 layer에 입력을 전달하자
+                TaskService taskService = TaskService.getTaskService();
+                taskService.doTask(commandAndTag);
+
+
 
 
             }
