@@ -1,6 +1,4 @@
-package tag;
-
-import command.Command;
+package commandandtag;
 
 public class CommandAndTag {
     private final Command command;
@@ -12,4 +10,8 @@ public class CommandAndTag {
     }
 
 
+    public static void execute() {
+
+
+    }
 }

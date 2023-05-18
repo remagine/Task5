@@ -1,4 +1,4 @@
-package tag;
+package commandandtag;
 
 public class Tag {
     private final int tag;
@@ -13,6 +13,7 @@ public class Tag {
             return new Tag(tag);
         } catch (NumberFormatException e) {
             System.err.println("유효하지 않은 숫자 형식입니다: " + s);
+            e.printStackTrace();
             return null;
         }
     }

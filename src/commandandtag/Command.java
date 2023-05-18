@@ -1,4 +1,4 @@
-package command;
+package commandandtag;
 
 public enum Command {
     CREATE("create"), EXECUTE("execute"), ERROR("error");
