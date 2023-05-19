@@ -15,8 +15,8 @@ public enum Command {
 
     public static Command from(String input) {
         for(Command command : Command.values()){
-            if(command.getCommandType().equals(input)){
-                return Command.valueOf(input);
+            if(command.getCommandType().equalsIgnoreCase(input)){
+                return command;
             }
         }
 

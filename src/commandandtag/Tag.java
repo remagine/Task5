@@ -1,7 +1,10 @@
 package commandandtag;
 
+import java.util.Objects;
+
 public class Tag implements Comparable<Tag>{
     private final Integer tag;
+
 
     public Tag(Integer tag) {
         this.tag = tag;
@@ -21,5 +24,20 @@ public class Tag implements Comparable<Tag>{
     @Override
     public int compareTo(Tag o) {
         return Integer.compare(tag, o.tag);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Tag tag1 = (Tag) o;
+
+        return Objects.equals(tag, tag1.tag);
+    }
+
+    @Override
+    public int hashCode() {
+        return tag != null ? tag.hashCode() : 0;
     }
 }

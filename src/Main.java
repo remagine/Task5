@@ -1,6 +1,7 @@
-import Task.TaskService;
+import Todo.TodoService;
 import commandandtag.Command;
 import commandandtag.CommandAndTag;
+import commandandtag.EmptyTag;
 import commandandtag.Tag;
 
 import java.io.*;
@@ -60,8 +61,8 @@ public class Main {
                 // command는 필수, tag는 nullable
                 // inputArray를 command와 tag로 변환한다.
                 Command command = Command.from(inputArray[0]);
-                Tag tag = null;
-                if (inputArray.length == 2) {
+                Tag tag = EmptyTag.EMPTY_TAG;
+                if (command.equals(Command.EXECUTE)) {
                     tag = Tag.from(inputArray[1]);
                 }
 
@@ -69,9 +70,9 @@ public class Main {
                 CommandAndTag commandAndTag = new CommandAndTag(command, tag);
                 // 처리
                 //CommandAndTag.execute();
-                // 처리 layer에 입력을 전달하자
-                TaskService taskService = TaskService.getTaskService();
-                taskService.doTask(commandAndTag);
+                // 처리 컨텍스트로 입력을 전달한다.
+                TodoService todoService = TodoService.getTaskService();
+                todoService.doTask(commandAndTag);
 
 
 
