@@ -7,7 +7,7 @@ import commandandtag.TagManager;
 
 public class TodoService {
     private final static TodoService TODO_SERVICE = new TodoService();
-    private final static TagManager tagManager = new TagManager();
+    private final static TagManager tagManager = TagManager.getInstance();
 
     public TodoService() {
     }
@@ -62,5 +62,9 @@ public class TodoService {
 
     private void failHandler(Tag tag) {
         tagManager.executeFail(tag);
+    }
+
+    public void printTodoHistory() {
+        tagManager.printTodoHistory();
     }
 }

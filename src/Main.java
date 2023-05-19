@@ -1,8 +1,5 @@
 import Todo.TodoService;
-import commandandtag.Command;
-import commandandtag.CommandAndTag;
-import commandandtag.EmptyTag;
-import commandandtag.Tag;
+import commandandtag.*;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -41,7 +38,7 @@ public class Main {
         InputStreamReader isr = new InputStreamReader(bs, StandardCharsets.UTF_8);
         // 버퍼처리
         BufferedReader br = new BufferedReader(isr, 8192);
-
+        TodoService todoService = TodoService.getTaskService();
         // 자원의 해제
         try (is; bs; isr; br) {
             int count = Integer.parseInt(br.readLine());
@@ -71,13 +68,12 @@ public class Main {
                 // 처리
                 //CommandAndTag.execute();
                 // 처리 컨텍스트로 입력을 전달한다.
-                TodoService todoService = TodoService.getTaskService();
+
                 todoService.doTask(commandAndTag);
 
-
-
-
             }
+            // 출력
+            todoService.printTodoHistory();
 
 
         } catch (IOException e) {

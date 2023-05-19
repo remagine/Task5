@@ -5,6 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListSet;
 
 public class TagManager {
+    private final static TagManager TAG_MANAGER = new TagManager();
     private final static ConcurrentSkipListSet<Tag> availableTags = new ConcurrentSkipListSet<>();
     private final static HashSet<Tag> toDoTags = new HashSet<>();
     private final static ConcurrentHashMap<Tag, Integer> failHistory = new ConcurrentHashMap<>();
@@ -14,6 +15,10 @@ public class TagManager {
             availableTags.add(new Tag(i));
         }
     }
+
+    public static TagManager getInstance(){
+        return TAG_MANAGER;
+    };
 
     public Tag getMinTag() {
         //        if (tag == null) {
@@ -36,5 +41,12 @@ public class TagManager {
             return target;
         }
         return new EmptyTag();
+    }
+
+    public void printTodoHistory() {
+        int createFailCnt = failHistory.getOrDefault(EmptyTag.EMPTY_TAG,0);
+        System.out.println(createFailCnt);
+        failHistory.remove(EmptyTag.EMPTY_TAG);
+        System.out.println(failHistory);
     }
 }
