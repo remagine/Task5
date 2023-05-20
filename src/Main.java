@@ -60,7 +60,7 @@ public class Main {
                 Command command = Command.from(inputArray[0]);
                 Tag tag = EmptyTag.EMPTY_TAG;
                 if (command.equals(Command.EXECUTE)) {
-                    tag = Tag.from(inputArray[1]);
+                    tag = Tag.from(inputArray[1]); // could be catch index error
                 }
 
                 // 처리의 입력을 생성

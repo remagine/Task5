@@ -20,7 +20,7 @@ public class TodoService {
             case CREATE:
                 Tag createTag = create();
                 if(createTag.equals(EmptyTag.EMPTY_TAG)){
-                    tagManager.executeFail(createTag);
+                    tagManager.executeFail(EmptyTag.EMPTY_TAG);
                 } else {
                     tagManager.addTodo(createTag);
                 }
@@ -28,8 +28,8 @@ public class TodoService {
             case EXECUTE:
                 // Tag 값이 null 인지 체크를 어디서 해야하지??
                 Tag executeTag = commandAndTag.getTag();
-                boolean result = execute(executeTag);
-                if(!result){
+                Tag doneTag = execute(executeTag);
+                if(doneTag.equals(EmptyTag.EMPTY_TAG)){
                     tagManager.executeFail(executeTag);
                 }
                 break;
@@ -38,18 +38,13 @@ public class TodoService {
         }
     }
 
-    private boolean execute(Tag target) {
-        // 먼저 target이 null이면 안된다
-        if(target == null){
-            return false;
-        }
-
+    private Tag execute(Tag target) {
         Tag todo = tagManager.getTodo(target);
         if(todo.equals(EmptyTag.EMPTY_TAG)){
-            tagManager.executeFail(target);
-            return false;
+            return EmptyTag.EMPTY_TAG;
         }
-        return true;
+        tagManager.returnTag(todo);
+        return todo;
     }
 
     private Tag create() {

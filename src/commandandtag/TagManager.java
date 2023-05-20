@@ -38,6 +38,7 @@ public class TagManager {
 
     public Tag getTodo(Tag target) {
         if(toDoTags.contains(target)){
+            toDoTags.remove(target);
             return target;
         }
         return new EmptyTag();
@@ -48,5 +49,11 @@ public class TagManager {
         System.out.println(createFailCnt);
         failHistory.remove(EmptyTag.EMPTY_TAG);
         System.out.println(failHistory);
+        System.out.println(availableTags);
+        System.out.println(toDoTags);
+    }
+
+    public void returnTag(Tag todo) {
+        availableTags.add(todo);
     }
 }
