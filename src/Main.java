@@ -1,8 +1,10 @@
-import Todo.TodoService;
+import task.FailTask;
+import task.TaskService;
 import commandandtag.*;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 
 public class Main {
     public static void main(String[] args) {
@@ -38,7 +40,7 @@ public class Main {
         InputStreamReader isr = new InputStreamReader(bs, StandardCharsets.UTF_8);
         // 버퍼처리
         BufferedReader br = new BufferedReader(isr, 8192);
-        TodoService todoService = TodoService.getTaskService();
+        TaskService taskService = TaskService.getTaskService();
         // 자원의 해제
         try (is; bs; isr; br) {
             int count = Integer.parseInt(br.readLine());
@@ -60,20 +62,21 @@ public class Main {
                 Command command = Command.from(inputArray[0]);
                 Tag tag = EmptyTag.EMPTY_TAG;
                 if (command.equals(Command.EXECUTE)) {
-                    tag = Tag.from(inputArray[1]); // could be catch index error
+                    tag = Tag.from(inputArray[1]);
                 }
-
-                // 처리의 입력을 생성
                 CommandAndTag commandAndTag = new CommandAndTag(command, tag);
-                // 처리
-                //CommandAndTag.execute();
-                // 처리 컨텍스트로 입력을 전달한다.
-
-                todoService.doTask(commandAndTag);
-
+                // create
+                // 1. 1-9까지 사용가능한 태그들 중 가장 작은 태그를 가져온다
+                // 2. 가장 작은 태그가 없다면 실패처리
+                // execute[tag] : tag를 실행한다.
+                // 1. tag 값이 todo에 있는지 확인한다.
+                // 2. 있다면 todo에서 삭제한다.
+                // 3. 없다면 실패처리
+                Optional<FailTask> failTask = taskService.doTask(commandAndTag);
+                failTask.ifPresent(FailTask::executeFail);
             }
             // 출력
-            todoService.printTodoHistory();
+            taskService.printTaskHistory();
 
 
         } catch (IOException e) {

@@ -5,7 +5,6 @@ import java.util.Objects;
 public class Tag implements Comparable<Tag>{
     private final Integer tag;
 
-
     public Tag(Integer tag) {
         this.tag = tag;
     }
@@ -17,8 +16,12 @@ public class Tag implements Comparable<Tag>{
         } catch (NumberFormatException e) {
             System.err.println("유효하지 않은 숫자 형식입니다: " + s);
             e.printStackTrace();
-            return null;
+            return EmptyTag.EMPTY_TAG;
         }
+    }
+
+    public Integer getTag() {
+        return tag;
     }
 
     @Override
